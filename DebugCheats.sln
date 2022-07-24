@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30717.126
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DebugDeleteCard", "DebugDeleteCard.csproj", "{F16994E4-B211-4E9F-99D9-F860546E3E65}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DebugCheats", "DebugCheats.csproj", "{F16994E4-B211-4E9F-99D9-F860546E3E65}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
