@@ -49,7 +49,8 @@ namespace DebugCheats
 
             if (InputController.instance.GetKeyDown(Key.F2))
             {
-                __instance.CreateGold(__instance.MiddleOfBoard(), 5, true);
+                var currency = __instance.CurrentBoard.Id == "main" ? "gold" : "shell";
+                __instance.CreateCardStack(__instance.MiddleOfBoard(), 5, currency);
             }
 
             if (InputController.instance.GetKeyDown(Key.C) && card != null)

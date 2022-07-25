@@ -29,4 +29,5 @@ This mod requires BepInEx to work. BepInEx is a modding framework which allows m
 
 ## Changelog
 
+- v1.1: Make F2 spawn shells instead of coins when on the island
 - v1.0: Initial release
