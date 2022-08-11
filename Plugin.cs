@@ -25,11 +25,15 @@ namespace DebugCheats
             Harmony.CreateAndPatchAll(typeof(Plugin));
         }
 
-        [HarmonyPatch(typeof(WorldManager), "DebugUpdate")]
+        [HarmonyPatch(typeof(WorldManager), "Update")]
         [HarmonyPrefix]
-        private static void WorldManager__DebugUpdate(ref WorldManager __instance)
+        private static void WorldManager__Update(ref WorldManager __instance)
         {
-            if (!DebugKeysEnabled.Value) return;
+            if (__instance.MonthTimer > __instance.MonthTime * 1.5) {
+                __instance.MonthTimer = __instance.MonthTime / 2;
+            }
+
+            if (!Enabled.Value || !DebugKeysEnabled.Value) return;
 
             var card = __instance.HoveredCard;
             if ((InputController.instance.GetKeyDown(Key.Delete) || (InputController.instance.GetKey(Key.Delete) && InputController.instance.GetKey(Key.RightShift))) && card != null)
