@@ -25,6 +25,10 @@ namespace DebugCheats
             Harmony.CreateAndPatchAll(typeof(Plugin));
         }
 
+        private static bool HoldingShift() {
+            return InputController.instance.GetKey(Key.LeftShift) || InputController.instance.GetKey(Key.RightShift);
+        }
+
         [HarmonyPatch(typeof(WorldManager), "Update")]
         [HarmonyPrefix]
         private static void WorldManager__Update(ref WorldManager __instance)
@@ -36,7 +40,7 @@ namespace DebugCheats
             if (!Enabled.Value || !DebugKeysEnabled.Value) return;
 
             var card = __instance.HoveredCard;
-            if ((InputController.instance.GetKeyDown(Key.Delete) || (InputController.instance.GetKey(Key.Delete) && InputController.instance.GetKey(Key.RightShift))) && card != null)
+            if ((InputController.instance.GetKeyDown(Key.Delete) || (InputController.instance.GetKey(Key.Delete) && HoldingShift())) && card != null)
             {
                 __instance.DestroyStack(card);
             }
@@ -59,7 +63,20 @@ namespace DebugCheats
 
             if (InputController.instance.GetKeyDown(Key.C) && card != null)
             {
-                __instance.CreateCard(card.transform.position, card.CardData.Id);
+                if (HoldingShift()) {
+                    var pos = card.transform.position;
+                    var parent = __instance.CreateCard(pos, card.CardData.Id).MyGameCard;
+                    while (card.Child != null) {
+                        var child = __instance.CreateCard(pos, card.Child.CardData.Id).MyGameCard;
+                        parent.Child = child;
+                        child.Parent = parent;
+                        parent = child;
+                        card = card.Child;
+                    }
+                }
+                else {
+                    __instance.CreateCard(card.transform.position, card.CardData.Id);
+                }
             }
         }
 
