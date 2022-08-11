@@ -84,7 +84,7 @@ namespace DebugCheats
         [HarmonyPrefix]
         private static void NoFood(ref bool __runOriginal, ref int __result)
         {
-            if (!DisableFood.Value) return;
+            if (!Enabled.Value || !DisableStarving.Value) return;
             __runOriginal = false;
             __result = 0;
         }
@@ -93,7 +93,7 @@ namespace DebugCheats
         [HarmonyPrefix]
         private static void InfiniteMonths(ref bool __runOriginal, ref float __result)
         {
-            if (!OverrideMonthLength.Value) return;
+            if (!Enabled.Value || !OverrideMonthLength.Value) return;
             __runOriginal = false;
             __result = MonthLength.Value;
         }
