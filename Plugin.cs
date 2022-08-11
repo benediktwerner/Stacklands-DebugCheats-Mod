@@ -10,7 +10,8 @@ namespace DebugCheats
     {
         public static ConfigEntry<bool> Enabled;
         public static ConfigEntry<bool> DebugKeysEnabled;
-        public static ConfigEntry<bool> DisableFood;
+        public static ConfigEntry<bool> DisableStarving;
+        public static ConfigEntry<bool> DisableEating;
         public static ConfigEntry<bool> OverrideMonthLength;
         public static ConfigEntry<float> MonthLength;
 
@@ -18,7 +19,8 @@ namespace DebugCheats
         {
             Enabled = Config.Bind("General", "Enabled", true, "Can be used to disable the whole mod");
             DebugKeysEnabled = Config.Bind("General", "Debug Keys Enabled", true, "Enable additional debugging shortcuts");
-            DisableFood = Config.Bind("General", "Disable Food", true, "Disable villager food requirements");
+            DisableStarving = Config.Bind("General", "Disable Starving", false, "Villagers will still eat if there is food but they won't die if there is none.");
+            DisableEating = Config.Bind("General", "Disable Eating", true, "Villagers won't need food and won't eat any even if there is some.");
             OverrideMonthLength = Config.Bind("General", "Override Month Length", true, "Override month length with the value set in 'Month Length' below.");
             MonthLength = Config.Bind("General", "Month Length", float.PositiveInfinity, "How long months should be. Vanilla is 90 for Short, 120 for Normal, 200 for Long.");
 
@@ -85,6 +87,15 @@ namespace DebugCheats
         private static void NoFood(ref bool __runOriginal, ref int __result)
         {
             if (!Enabled.Value || !DisableStarving.Value) return;
+            __runOriginal = false;
+            __result = 0;
+        }
+
+        [HarmonyPatch(typeof(WorldManager), "GetCardRequiredFoodCount")]
+        [HarmonyPrefix]
+        private static void NoEating(ref bool __runOriginal, ref int __result)
+        {
+            if (!Enabled.Value || !DisableEating.Value) return;
             __runOriginal = false;
             __result = 0;
         }
