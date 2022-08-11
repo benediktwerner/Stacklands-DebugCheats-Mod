@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using BepInEx;
 using BepInEx.Configuration;
 using HarmonyLib;
@@ -118,14 +119,19 @@ namespace DebugCheats
                 if (HoldingShift())
                 {
                     var pos = card.transform.position;
-                    var parent = __instance.CreateCard(pos, card.CardData.Id).MyGameCard;
-                    while (card.Child != null)
+                    var cards = new List<string>();
+                    do
                     {
-                        var child = __instance.CreateCard(pos, card.Child.CardData.Id).MyGameCard;
+                        cards.Add(card.CardData.Id);
+                        card = card.Child;
+                    } while (card != null);
+                    var parent = __instance.CreateCard(pos, cards[0]).MyGameCard;
+                    foreach (var id in cards.GetRange(1, cards.Count - 1))
+                    {
+                        var child = __instance.CreateCard(pos, id, checkAddToStack: false).MyGameCard;
                         parent.Child = child;
                         child.Parent = parent;
                         parent = child;
-                        card = card.Child;
                     }
                 }
                 else

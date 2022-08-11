@@ -31,6 +31,7 @@ This mod requires BepInEx to work. BepInEx is a modding framework which allows m
 
 ## Changelog
 
+- v1.2.1: Fix infinite loop when using Shift+C
 - v1.2
   - Fix month timer when disabling infinite months or reducing the month time after playing with it for a while
   - Add Shift+C to copy a whole stack
