@@ -1,4 +1,5 @@
-﻿using BepInEx;
+﻿using System;
+using BepInEx;
 using BepInEx.Configuration;
 using HarmonyLib;
 using UnityEngine.InputSystem;
@@ -13,6 +14,7 @@ namespace DebugCheats
         public static ConfigEntry<bool> DisableStarving;
         public static ConfigEntry<bool> DisableEating;
         public static ConfigEntry<bool> OverrideMonthLength;
+        public static ConfigEntry<int> OverrideMaxCards;
         public static ConfigEntry<float> MonthLength;
 
         private void Awake()
@@ -22,6 +24,7 @@ namespace DebugCheats
             DisableStarving = Config.Bind("General", "Disable Starving", false, "Villagers will still eat if there is food but they won't die if there is none.");
             DisableEating = Config.Bind("General", "Disable Eating", true, "Villagers won't need food and won't eat any even if there is some.");
             OverrideMonthLength = Config.Bind("General", "Override Month Length", true, "Override month length with the value set in 'Month Length' below.");
+            OverrideMaxCards = Config.Bind("General", "Override Max Cards", 500, "Override maximum number of cards. Set to -1 to use the game's default calculation.");
             MonthLength = Config.Bind("General", "Month Length", float.PositiveInfinity, "How long months should be. Vanilla is 90 for Short, 120 for Normal, 200 for Long.");
 
             Harmony.CreateAndPatchAll(typeof(Plugin));
@@ -98,6 +101,17 @@ namespace DebugCheats
             if (!Enabled.Value || !DisableEating.Value) return;
             __runOriginal = false;
             __result = 0;
+        }
+
+        [HarmonyPrefix]
+        [HarmonyPatch(typeof(WorldManager), "GetMaxCardCount")]
+        [HarmonyPatch(new Type[0])]
+        [HarmonyPatch(new Type[]{ typeof(GameBoard) })]
+        private static void MaxCards(ref bool __runOriginal, ref int __result)
+        {
+            if (!Enabled.Value || OverrideMaxCards.Value < 0) return;
+            __runOriginal = false;
+            __result = OverrideMaxCards.Value;
         }
 
         [HarmonyPatch(typeof(WorldManager), "MonthTime", MethodType.Getter)]
