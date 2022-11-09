@@ -1,7 +1,7 @@
 {
   "name": "DebugCheats",
   "description": "Various cheats for debugging stuff",
-  "version_number": "1.2.1",
+  "version_number": "1.3.0",
   "dependencies": ["BepInEx-BepInExPack_Stacklands-5.4.2100"],
   "website_url": "https://github.com/benediktwerner/Stacklands-DebugCheats-Mod"
 }

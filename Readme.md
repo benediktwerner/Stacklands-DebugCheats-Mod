@@ -2,10 +2,7 @@
 
 Adds various (configurable) debug cheats to make testing stuff easier:
 
-- Month never ends (can also be changed to a custom length instead)
-- Villagers don't need food anymore (by default, they also won't consume any food but this can be changed so they still eat but won't starve anymore if there's no food)
 - Press F1 to open the card spawn menu (instead of K+O+F1 in vanilla)
-- When hovering over the card spawn menu, press a letter to jump to cards starting with that letter
 - Press F2 to spawn 5 coins
 - Press C while hovering over a card to duplicate it
 - Press Shift+C while hovering over a card to duplicate it and its children
@@ -31,6 +28,9 @@ This mod requires BepInEx to work. BepInEx is a modding framework which allows m
 
 ## Changelog
 
+- v1.3.0: Witch Forest Update
+  - Fix incompatibility with the game's Witch Forest Update
+  - Remove infinite months and food blocker (now built into the game's debug menu)
 - v1.2.1: Fix infinite loop when using Shift+C
 - v1.2
   - Fix month timer when disabling infinite months or reducing the month time after playing with it for a while
