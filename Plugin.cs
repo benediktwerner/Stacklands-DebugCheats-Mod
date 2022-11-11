@@ -52,7 +52,21 @@ namespace DebugCheats
             return InputController.instance.GetKey(Key.LeftShift) || InputController.instance.GetKey(Key.RightShift);
         }
 
-        [HarmonyPatch(typeof(WorldManager), "Update")]
+        [HarmonyPatch(typeof(DebugScreen), nameof(DebugScreen.ToggleEndlessMoon))]
+        [HarmonyPostfix]
+        private static void SyncEndlessMoon()
+        {
+            InfiniteMonths.Value = WorldManager.instance.DebugEndlessMoonEnabled;
+        }
+
+        [HarmonyPatch(typeof(DebugScreen), nameof(DebugScreen.ToggleNoFood))]
+        [HarmonyPostfix]
+        private static void SyncToggleNoFood()
+        {
+            DisableEating.Value = WorldManager.instance.DebugNoFoodEnabled;
+        }
+
+        [HarmonyPatch(typeof(WorldManager), nameof(WorldManager.Update))]
         [HarmonyPrefix]
         private static void WorldManager__Update(ref WorldManager __instance)
         {

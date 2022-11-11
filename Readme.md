@@ -30,6 +30,7 @@ This mod requires BepInEx to work. BepInEx is a modding framework which allows m
 
 ## Changelog
 
+- v1.3.2: Sync infinite months and no food settings with game's debug screen
 - v1.3.1: Add back infinite months and no food options since the game's options aren't persistent
 - v1.3.0: Witch Forest Update
   - Fix incompatibility with the game's Witch Forest Update
