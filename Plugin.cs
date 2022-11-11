@@ -26,7 +26,7 @@ namespace DebugCheats
             OverrideMaxCards = Config.Bind(
                 "General",
                 "Override Max Cards",
-                500,
+                999,
                 "Override maximum number of cards. Set to -1 to use the game's default calculation."
             );
 
