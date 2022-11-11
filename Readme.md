@@ -9,6 +9,8 @@ Adds various (configurable) debug cheats to make testing stuff easier:
 - Press Delete to delete the card below the cursor and its children
 - Hold Shift+Delete to continuously delete cards the cursor touches
 - Override max number of cards (default is 500)
+- Option for infinite months
+- Option to disalbe food usage
 
 To configure or disable the cheats, edit the `BepInEx/config/de.benediktwerner.stacklands.debugcheats.cfg` file which appears after starting the game once.
 
@@ -28,6 +30,7 @@ This mod requires BepInEx to work. BepInEx is a modding framework which allows m
 
 ## Changelog
 
+- v1.3.1: Add back infinite months and no food options since the game's options aren't persistent
 - v1.3.0: Witch Forest Update
   - Fix incompatibility with the game's Witch Forest Update
   - Remove infinite months and food blocker (now built into the game's debug menu)

@@ -13,6 +13,8 @@ namespace DebugCheats
         public static ConfigEntry<bool> Enabled;
         public static ConfigEntry<bool> DebugKeysEnabled;
         public static ConfigEntry<int> OverrideMaxCards;
+        public static ConfigEntry<bool> DisableEating;
+        public static ConfigEntry<bool> InfiniteMonths;
 
         private void Awake()
         {
@@ -29,6 +31,18 @@ namespace DebugCheats
                 999,
                 "Override maximum number of cards. Set to -1 to use the game's default calculation."
             );
+            DisableEating = Config.Bind(
+                "General",
+                "Disable Eating",
+                true,
+                "Same as the option in the game's debug menu but stored persistently."
+            );
+            InfiniteMonths = Config.Bind(
+                "General",
+                "Infinite Months",
+                true,
+                "Same as the option in the game's debug menu but stored persistently."
+            );
 
             Harmony.CreateAndPatchAll(typeof(Plugin));
         }
@@ -42,7 +56,13 @@ namespace DebugCheats
         [HarmonyPrefix]
         private static void WorldManager__Update(ref WorldManager __instance)
         {
-            if (!Enabled.Value || !DebugKeysEnabled.Value)
+            if (!Enabled.Value)
+                return;
+
+            __instance.DebugNoFoodEnabled = DisableEating.Value;
+            __instance.DebugEndlessMoonEnabled = InfiniteMonths.Value;
+
+            if (!DebugKeysEnabled.Value)
                 return;
 
             var card = __instance.HoveredCard;
