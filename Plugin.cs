@@ -84,7 +84,7 @@ namespace DebugCheats
                 (
                     InputController.instance.GetKeyDown(Key.Delete)
                     || (
-                        (InputController.instance.GetKeyDown(Key.R) || InputController.instance.GetKey(Key.Delete))
+                        (InputController.instance.GetKey(Key.R) || InputController.instance.GetKey(Key.Delete))
                         && HoldingShift()
                     )
                 )

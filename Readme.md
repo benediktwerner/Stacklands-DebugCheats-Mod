@@ -39,6 +39,7 @@ This mod requires BepInEx to work. BepInEx is a modding framework which allows m
 
 ## Changelog
 
+- v1.3.4: Make Shift+R continously delete while held down
 - v1.3.3:
   - Allow deleting cards with Shift+R (you can still use plain R for the game's built-in deletion)
   - Allow deleting booster packs
