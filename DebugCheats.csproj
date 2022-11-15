@@ -4,7 +4,7 @@
     <AssemblyName>DebugCheats</AssemblyName>
     <Product>DebugCheats</Product>
     <Description>Various debug cheats</Description>
-    <Version>1.3.2</Version>
+    <Version>1.3.3</Version>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
@@ -41,7 +41,6 @@
     <RemoveDir Directories="$(TMP_OUTPUT_PATH)" />
     <MakeDir Directories="$(OUTPUT_PATH)" />
     <Copy SourceFiles="$(TargetDir)$(TargetFileName)" DestinationFolder="$(TMP_OUTPUT_PATH)" />
-    <ZipDirectory Overwrite="true" SourceDirectory="$(TMP_OUTPUT_PATH)" DestinationFile="$(OUTPUT_PATH)/$(MOD_NAME)-Nexus.zip" />
     <Copy SourceFiles="manifest.json" DestinationFolder="$(TMP_OUTPUT_PATH)" />
     <Copy SourceFiles="README.md" DestinationFolder="$(TMP_OUTPUT_PATH)" />
     <Copy SourceFiles="icon.png" DestinationFolder="$(TMP_OUTPUT_PATH)" />

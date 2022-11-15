@@ -83,12 +83,17 @@ namespace DebugCheats
             if (
                 (
                     InputController.instance.GetKeyDown(Key.Delete)
-                    || (InputController.instance.GetKey(Key.Delete) && HoldingShift())
+                    || (
+                        (InputController.instance.GetKeyDown(Key.R) || InputController.instance.GetKey(Key.Delete))
+                        && HoldingShift()
+                    )
                 )
-                && card != null
             )
             {
-                __instance.DestroyStack(card);
+                if (card != null)
+                    __instance.DestroyStack(card);
+                else if (__instance.HoveredDraggable is Boosterpack b)
+                    UnityEngine.Object.Destroy(b.gameObject);
             }
 
             if (InputController.instance.GetKeyDown(Key.F1))
