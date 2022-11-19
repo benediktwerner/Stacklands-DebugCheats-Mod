@@ -91,7 +91,16 @@ namespace DebugCheats
             )
             {
                 if (card != null)
+                {
+                    if (card.CardData is Combatable c && c.MyConflict != null)
+                        c.MyConflict.LeaveConflict(c);
+                    if (card.Parent != null)
+                    {
+                        card.Parent.Child = null;
+                        card.Parent = null;
+                    }
                     __instance.DestroyStack(card);
+                }
                 else if (__instance.HoveredDraggable is Boosterpack b)
                     UnityEngine.Object.Destroy(b.gameObject);
             }
