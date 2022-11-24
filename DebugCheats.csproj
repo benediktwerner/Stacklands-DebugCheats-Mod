@@ -4,7 +4,7 @@
     <AssemblyName>DebugCheats</AssemblyName>
     <Product>DebugCheats</Product>
     <Description>Various debug cheats</Description>
-    <Version>1.3.5</Version>
+    <Version>1.3.6</Version>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <LangVersion>latest</LangVersion>
   </PropertyGroup>

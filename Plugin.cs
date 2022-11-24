@@ -101,7 +101,7 @@ namespace DebugCheats
                     }
                     __instance.DestroyStack(card);
                 }
-                else if (__instance.HoveredDraggable is Boosterpack b)
+                else if (__instance.HoveredDraggable != null && __instance.HoveredDraggable is Boosterpack b)
                     UnityEngine.Object.Destroy(b.gameObject);
             }
 
