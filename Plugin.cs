@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Reflection.Emit;
 using BepInEx;
 using BepInEx.Configuration;
 using BepInEx.Logging;
@@ -153,6 +154,28 @@ namespace DebugCheats
                     }
                 }
             }
+        }
+
+        [HarmonyTranspiler]
+        [HarmonyPatch(typeof(WorldManager), nameof(WorldManager.CheckDebugInput))]
+        public static IEnumerable<CodeInstruction> BlockVanillaDebugCopy(IEnumerable<CodeInstruction> instructions)
+        {
+            return new CodeMatcher(instructions)
+                .MatchForward(
+                    true,
+                    new CodeMatch(OpCodes.Ldc_I4_S, (sbyte)17),
+                    new CodeMatch(
+                        OpCodes.Callvirt,
+                        AccessTools.Method(typeof(InputController), nameof(InputController.GetKeyDown))
+                    ),
+                    new CodeMatch(OpCodes.Brfalse)
+                )
+                .ThrowIfInvalid("Didn't find vanilla debug copy")
+                .Insert(
+                    Transpilers.EmitDelegate<Func<bool>>(() => !Enabled.Value || !DebugKeysEnabled.Value),
+                    new CodeInstruction(OpCodes.And)
+                )
+                .InstructionEnumeration();
         }
 
         [HarmonyPrefix]
