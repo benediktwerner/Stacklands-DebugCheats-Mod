@@ -39,6 +39,10 @@ This mod requires BepInEx to work. BepInEx is a modding framework which allows m
 
 ## Changelog
 
+- v1.4:
+  - Copy equipment and health when copying single card
+  - Block vanilla debug copying
+  - Allow managing enemy equipment
 - v1.3.6: Fix continous deleting after a booster pack
 - v1.3.5: Remove cards from combat and stack before deleting
 - v1.3.4: Make Shift+R continously delete while held down
