@@ -179,6 +179,22 @@ namespace DebugCheats
         }
 
         [HarmonyPrefix]
+        [HarmonyPatch(typeof(Equipable), nameof(Equipable.CanBeDragged), MethodType.Getter)]
+        public static void AllowDraggingEnemyEquipment(out bool __runOriginal, out bool __result)
+        {
+            __runOriginal = !Enabled.Value;
+            __result = true;
+        }
+
+        [HarmonyPrefix]
+        [HarmonyPatch(typeof(Mob), nameof(Mob.CanHaveCard))]
+        public static void AllowEquippingEnemies(CardData otherCard, out bool __runOriginal, out bool __result)
+        {
+            __result = true;
+            __runOriginal = !Enabled.Value || otherCard is not Equipable;
+        }
+
+        [HarmonyPrefix]
         [HarmonyPatch(typeof(WorldManager), "GetMaxCardCount")]
         [HarmonyPatch(new Type[0])]
         [HarmonyPatch(new Type[] { typeof(GameBoard) })]
