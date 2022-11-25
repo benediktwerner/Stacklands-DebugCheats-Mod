@@ -144,7 +144,13 @@ namespace DebugCheats
                 }
                 else
                 {
-                    __instance.CreateCard(card.transform.position, card.CardData.Id);
+                    var newCard = __instance.CreateCard(card.transform.position, card.CardData.Id);
+                    if (newCard is Combatable c)
+                    {
+                        foreach (var equip in card.CardData.GetAllEquipables())
+                            c.CreateAndEquipCard(equip.Id, false);
+                        c.HealthPoints = (card.CardData as Combatable).HealthPoints;
+                    }
                 }
             }
         }
