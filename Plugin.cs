@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using BepInEx;
 using BepInEx.Configuration;
+using BepInEx.Logging;
 using HarmonyLib;
 using UnityEngine.InputSystem;
 
@@ -10,6 +11,8 @@ namespace DebugCheats
     [BepInPlugin("de.benediktwerner.stacklands.debugcheats", PluginInfo.PLUGIN_NAME, PluginInfo.PLUGIN_VERSION)]
     public class Plugin : BaseUnityPlugin
     {
+        public static ManualLogSource L;
+
         public static ConfigEntry<bool> Enabled;
         public static ConfigEntry<bool> DebugKeysEnabled;
         public static ConfigEntry<int> OverrideMaxCards;
@@ -18,6 +21,7 @@ namespace DebugCheats
 
         private void Awake()
         {
+            L = Logger;
             Enabled = Config.Bind("General", "Enabled", true, "Can be used to disable the whole mod");
             DebugKeysEnabled = Config.Bind(
                 "General",
