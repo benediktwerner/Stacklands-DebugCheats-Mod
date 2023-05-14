@@ -6,24 +6,29 @@ Adds various (configurable) debug cheats to make testing stuff easier:
 - Press F2 to spawn 5 coins
 - Press C while hovering over a card to duplicate it
 - Press Shift+C while hovering over a card to duplicate it and its children
-- Press Delete to delete the card below the cursor and its children
-- Hold Shift+Delete to continuously delete cards the cursor touches
+- Press Delete to delete the card or boosterpack below the cursor and its children
+- Hold Shift+Delete or Shift+R to continuously delete cards or boosterpacks the cursor touches
 - Override max number of cards (default is 500)
-- Option for infinite months
-- Option to disalbe food usage
+- Option for infinite months (synced with the option in the vanilla debug menu but persists over restarts)
+- Option to disable food usage (synced with the option in the vanilla debug menu but persists over restarts)
+- Option to disable game over when all villagers are dead
+- Allows modifying the equipment of enemies
+- Allows dragging enemies, portals, and pirate boats
 
 To configure or disable the cheats, edit the `BepInEx/config/de.benediktwerner.stacklands.debugcheats.cfg` file which appears after starting the game once.
 
 See also the HigherSidebar mod to increase the height of the card spawn menu.
 
 ## Manual Installation
+
 This mod requires BepInEx to work. BepInEx is a modding framework which allows multiple mods to be loaded.
 
 1. Download and install BepInEx from the [Thunderstore](https://stacklands.thunderstore.io/package/BepInEx/BepInExPack_Stacklands/).
-4. Download this mod and extract it into `BepInEx/plugins/`
-5. Launch the game
+2. Download this mod and extract it into `BepInEx/plugins/`
+3. Launch the game
 
 ## Development
+
 1. Install BepInEx
 2. This mod uses publicized game DLLs to get private members without reflection
    - Use https://github.com/CabbageCrow/AssemblyPublicizer for example to publicize `Stacklands/Stacklands_Data/Managed/GameScripts.dll` (just drag the DLL onto the publicizer exe)
@@ -33,19 +38,23 @@ This mod requires BepInEx to work. BepInEx is a modding framework which allows m
    - If you're using VSCode, the `.vscode/tasks.json` file should make it so that you can just do `Run Build`/`Ctrl+Shift+B` to build.
 
 ## Links
+
 - Github: https://github.com/benediktwerner/Stacklands-DebugCheats-Mod
 - Thunderstore: https://stacklands.thunderstore.io/package/benediktwerner/DebugCheats
 - Nexusmods: https://www.nexusmods.com/stacklands/mods/8
 
 ## Changelog
 
+- v1.5:
+  - Allow dragging enemies
+  - Add option to disable game over
 - v1.4:
   - Copy equipment and health when copying single card
   - Block vanilla debug copying
   - Allow managing enemy equipment
-- v1.3.6: Fix continous deleting after a booster pack
+- v1.3.6: Fix continuous deleting after a booster pack
 - v1.3.5: Remove cards from combat and stack before deleting
-- v1.3.4: Make Shift+R continously delete while held down
+- v1.3.4: Make Shift+R continuously delete while held down
 - v1.3.3:
   - Allow deleting cards with Shift+R (you can still use plain R for the game's built-in deletion)
   - Allow deleting booster packs

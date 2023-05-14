@@ -19,6 +19,7 @@ namespace DebugCheats
         public static ConfigEntry<int> OverrideMaxCards;
         public static ConfigEntry<bool> DisableEating;
         public static ConfigEntry<bool> InfiniteMonths;
+        public static ConfigEntry<bool> DisableGameOver;
 
         private void Awake()
         {
@@ -47,6 +48,12 @@ namespace DebugCheats
                 "Infinite Months",
                 true,
                 "Same as the option in the game's debug menu but stored persistently."
+            );
+            DisableGameOver = Config.Bind(
+                "General",
+                "Disable Game Over",
+                true,
+                "Prevents game over when all villagers are dead."
             );
 
             Harmony.CreateAndPatchAll(typeof(Plugin));
@@ -180,7 +187,10 @@ namespace DebugCheats
 
         [HarmonyPrefix]
         [HarmonyPatch(typeof(Equipable), nameof(Equipable.CanBeDragged), MethodType.Getter)]
-        public static void AllowDraggingEnemyEquipment(out bool __runOriginal, out bool __result)
+        [HarmonyPatch(typeof(StrangePortal), nameof(StrangePortal.CanBeDragged), MethodType.Getter)]
+        [HarmonyPatch(typeof(PirateBoat), nameof(PirateBoat.CanBeDragged), MethodType.Getter)]
+        [HarmonyPatch(typeof(Mob), nameof(PirateBoat.CanBeDragged), MethodType.Getter)]
+        public static void AllowDraggingEverything(out bool __runOriginal, out bool __result)
         {
             __runOriginal = !Enabled.Value;
             __result = true;
@@ -204,6 +214,14 @@ namespace DebugCheats
                 return;
             __runOriginal = false;
             __result = OverrideMaxCards.Value;
+        }
+
+        [HarmonyPrefix]
+        [HarmonyPatch(typeof(WorldManager), nameof(WorldManager.CheckAllVillagersDead))]
+        public static void PreventGameOver(out bool __runOriginal, out bool __result)
+        {
+            __result = false;
+            __runOriginal = !Enabled.Value || !DisableGameOver.Value;
         }
     }
 }
