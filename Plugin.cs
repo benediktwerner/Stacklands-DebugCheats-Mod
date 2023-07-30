@@ -17,6 +17,8 @@ namespace DebugCheats
         public static ConfigEntry<bool> InfiniteMonths;
         public static ConfigEntry<bool> DisableGameOver;
 
+        public static ConfigFile ConfigFile;
+
         private ConfigEntry<T> CreateConfig<T>(string name, T defaultValue, string description)
         {
             return Config.GetEntry<T>(name, defaultValue, new ConfigUI { Tooltip = description });
@@ -49,11 +51,7 @@ namespace DebugCheats
             );
 
             Harmony.PatchAll(typeof(Plugin));
-        }
-
-        public void OnDestroy()
-        {
-            Harmony.UnpatchAll();
+            ConfigFile = Config;
         }
 
         private static bool HoldingShift()
@@ -66,6 +64,7 @@ namespace DebugCheats
         private static void SyncEndlessMoon()
         {
             InfiniteMonths.Value = WorldManager.instance.DebugEndlessMoonEnabled;
+            ConfigFile.Save();
         }
 
         [HarmonyPatch(typeof(DebugScreen), nameof(DebugScreen.ToggleNoFood))]
@@ -73,6 +72,7 @@ namespace DebugCheats
         private static void SyncToggleNoFood()
         {
             DisableEating.Value = WorldManager.instance.DebugNoFoodEnabled;
+            ConfigFile.Save();
         }
 
         [HarmonyPatch(typeof(WorldManager), nameof(WorldManager.Update))]

@@ -28,6 +28,7 @@ Adds various (configurable) debug cheats to make testing stuff easier:
 
 ## Changelog
 
+- v1.6.1: Fix debug settings not getting persisted when being toggled via in-game debug menu
 - v1.6: Steam Workshop Support
 - v1.5:
   - Allow dragging enemies
