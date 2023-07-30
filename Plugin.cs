@@ -1,18 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Reflection.Emit;
-using BepInEx;
-using BepInEx.Configuration;
-using BepInEx.Logging;
 using HarmonyLib;
 using UnityEngine.InputSystem;
 
 namespace DebugCheats
 {
-    [BepInPlugin("de.benediktwerner.stacklands.debugcheats", PluginInfo.PLUGIN_NAME, PluginInfo.PLUGIN_VERSION)]
-    public class Plugin : BaseUnityPlugin
+    public class Plugin : Mod
     {
-        public static ManualLogSource L;
+        public static ModLogger L;
 
         public static ConfigEntry<bool> Enabled;
         public static ConfigEntry<bool> DebugKeysEnabled;
@@ -21,42 +17,43 @@ namespace DebugCheats
         public static ConfigEntry<bool> InfiniteMonths;
         public static ConfigEntry<bool> DisableGameOver;
 
+        private ConfigEntry<T> CreateConfig<T>(string name, T defaultValue, string description)
+        {
+            return Config.GetEntry<T>(name, defaultValue, new ConfigUI { Tooltip = description });
+        }
+
         private void Awake()
         {
             L = Logger;
-            Enabled = Config.Bind("General", "Enabled", true, "Can be used to disable the whole mod");
-            DebugKeysEnabled = Config.Bind(
-                "General",
-                "Debug Keys Enabled",
-                true,
-                "Enable additional debugging shortcuts"
-            );
-            OverrideMaxCards = Config.Bind(
-                "General",
+            Enabled = CreateConfig("Enabled", true, "Can be used to disable the whole mod");
+            DebugKeysEnabled = CreateConfig("Debug Keys Enabled", true, "Enable additional debugging shortcuts");
+            OverrideMaxCards = CreateConfig(
                 "Override Max Cards",
                 999,
                 "Override maximum number of cards. Set to -1 to use the game's default calculation."
             );
-            DisableEating = Config.Bind(
-                "General",
+            DisableEating = CreateConfig(
                 "Disable Eating",
                 true,
                 "Same as the option in the game's debug menu but stored persistently."
             );
-            InfiniteMonths = Config.Bind(
-                "General",
+            InfiniteMonths = CreateConfig(
                 "Infinite Months",
                 true,
                 "Same as the option in the game's debug menu but stored persistently."
             );
-            DisableGameOver = Config.Bind(
-                "General",
+            DisableGameOver = CreateConfig(
                 "Disable Game Over",
                 true,
                 "Prevents game over when all villagers are dead."
             );
 
-            Harmony.CreateAndPatchAll(typeof(Plugin));
+            Harmony.PatchAll(typeof(Plugin));
+        }
+
+        public void OnDestroy()
+        {
+            Harmony.UnpatchAll();
         }
 
         private static bool HoldingShift()
