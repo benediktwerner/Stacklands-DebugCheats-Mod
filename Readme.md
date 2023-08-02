@@ -15,6 +15,12 @@ Adds various (configurable) debug cheats to make testing stuff easier:
 - Allows modifying the equipment of enemies
 - Allows dragging enemies, portals, and pirate boats
 
+## Possible keyboard hotkey values
+
+You can configure the debug menu hotkey in the settings. Unfortunately, the game currently doesn't have a proper way to set hotkeys for mods so you have to enter the name of the hotkey you want to use. Valid values are:
+
+Space, Enter, Tab, Backquote, Quote, Semicolon, Comma, Period, Slash, Backslash, LeftBracket, RightBracket, Minus, Equals, A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z, Digit1, Digit2, Digit3, Digit4, Digit5, Digit6, Digit7, Digit8, Digit9, Digit0, LeftShift, RightShift, LeftAlt, RightAlt, AltGr, LeftCtrl, RightCtrl, LeftMeta, RightMeta, LeftWindows, RightWindows, LeftApple, RightApple, LeftCommand, RightCommand, ContextMenu, Escape, LeftArrow, RightArrow, UpArrow, DownArrow, Backspace, PageDown, PageUp, Home, End, Insert, Delete, CapsLock, NumLock, PrintScreen, ScrollLock, Pause, NumpadEnter, NumpadDivide, NumpadMultiply, NumpadPlus, NumpadMinus, NumpadPeriod, NumpadEquals, Numpad0, Numpad1, Numpad2, Numpad3, Numpad4, Numpad5, Numpad6, Numpad7, Numpad8, Numpad9, F1, F2, F3, F4, F5, F6, F7, F8, F9, F10, F11, F12, OEM1, OEM2, OEM3, OEM4, OEM5, IMESelected
+
 ## Development
 
 - Build using `dotnet build`
@@ -28,6 +34,7 @@ Adds various (configurable) debug cheats to make testing stuff easier:
 
 ## Changelog
 
+- v1.6.2: Allow configuring the debug menu hotkey
 - v1.6.1: Fix debug settings not getting persisted when being toggled via in-game debug menu
 - v1.6: Steam Workshop Support
 - v1.5:

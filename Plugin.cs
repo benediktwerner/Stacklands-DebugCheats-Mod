@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Reflection.Emit;
 using HarmonyLib;
@@ -16,6 +17,9 @@ namespace DebugCheats
         public static ConfigEntry<bool> DisableEating;
         public static ConfigEntry<bool> InfiniteMonths;
         public static ConfigEntry<bool> DisableGameOver;
+        public static ConfigEntry<string> DebugKey;
+
+        public static Key DebugHotkey = Key.F1;
 
         public static ConfigFile ConfigFile;
 
@@ -28,6 +32,9 @@ namespace DebugCheats
         {
             L = Logger;
             Enabled = CreateConfig("Enabled", true, "Can be used to disable the whole mod");
+            DebugKey = CreateConfig("Debug Menu Shortcut", "F1", "Key to toggle the debug menu.");
+            SetDebugHotkey(DebugKey.Value);
+            DebugKey.OnChanged += SetDebugHotkey;
             DebugKeysEnabled = CreateConfig("Debug Keys Enabled", true, "Enable additional debugging shortcuts");
             OverrideMaxCards = CreateConfig(
                 "Override Max Cards",
@@ -52,6 +59,17 @@ namespace DebugCheats
 
             Harmony.PatchAll(typeof(Plugin));
             ConfigFile = Config;
+        }
+
+        private static void SetDebugHotkey(string newValue)
+        {
+            Key? maybeKey = Keyboard.current.allKeys.FirstOrDefault(x => x.displayName == newValue)?.keyCode;
+            if (maybeKey is Key key)
+            {
+                DebugHotkey = key;
+            }
+            else
+                L.LogWarning($"Invalid hotkey: {newValue}");
         }
 
         private static bool HoldingShift()
@@ -114,7 +132,7 @@ namespace DebugCheats
                     UnityEngine.Object.Destroy(b.gameObject);
             }
 
-            if (InputController.instance.GetKeyDown(Key.F1))
+            if (InputController.instance.GetKeyDown(DebugHotkey))
             {
                 GameScreen.instance.DebugScreen.gameObject.SetActive(
                     !GameScreen.instance.DebugScreen.gameObject.activeInHierarchy
