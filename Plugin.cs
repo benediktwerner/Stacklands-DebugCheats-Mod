@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Reflection.Emit;
 using HarmonyLib;
 using UnityEngine.InputSystem;
+using UnityEngine;
 
 namespace DebugCheats
 {
@@ -237,6 +238,19 @@ namespace DebugCheats
         {
             __result = false;
             __runOriginal = !Enabled.Value || !DisableGameOver.Value;
+        }
+
+        [HarmonyPatch(typeof(DebugScreen), nameof(DebugScreen.InitializeDebugScreen))]
+        [HarmonyPostfix]
+        public static void FixDebugScreenTabs(DebugScreen __instance)
+        {
+            ((RectTransform)__instance.transform).offsetMax = new Vector2(-10, -70);
+            ((RectTransform)__instance.transform.Find("Titles")).anchoredPosition = new Vector2(0, -10);
+            ((RectTransform)__instance.transform.Find("Titles2")).anchoredPosition = new Vector2(0, -55);
+            var tabs = (RectTransform)__instance.transform.Find("Tabs");
+            tabs.offsetMax = new Vector2(-10, -100);
+            tabs.offsetMin = new Vector2(10, 10);
+            ((RectTransform)tabs.Find("CardsTab")).anchoredPosition = new Vector2(0, -25);
         }
     }
 }

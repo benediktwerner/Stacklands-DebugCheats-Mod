@@ -34,6 +34,7 @@ Space, Enter, Tab, Backquote, Quote, Semicolon, Comma, Period, Slash, Backslash,
 
 ## Changelog
 
+- v1.6.3: Fix debug screen tabs getting cut off (thanks a lot @lopidav for the fix)
 - v1.6.2: Allow configuring the debug menu hotkey
 - v1.6.1: Fix debug settings not getting persisted when being toggled via in-game debug menu
 - v1.6: Steam Workshop Support

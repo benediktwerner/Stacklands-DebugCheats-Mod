@@ -4,7 +4,7 @@
     <AssemblyName>DebugCheats</AssemblyName>
     <Product>DebugCheats</Product>
     <Description>Various debug cheats</Description>
-    <Version>1.6.2</Version>
+    <Version>1.6.3</Version>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <LangVersion>latest</LangVersion>
     <PublicizerRuntimeStrategies>Unsafe</PublicizerRuntimeStrategies>
