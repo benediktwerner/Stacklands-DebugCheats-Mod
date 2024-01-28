@@ -138,6 +138,7 @@ namespace DebugCheats
                 GameScreen.instance.DebugScreen.gameObject.SetActive(
                     !GameScreen.instance.DebugScreen.gameObject.activeInHierarchy
                 );
+                WorldManager.instance.DebugScreenOpened = true;
             }
 
             if (InputController.instance.GetKeyDown(Key.F2))
